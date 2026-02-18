@@ -4,6 +4,8 @@
  */
 package calciatori;
 
+import java.io.IOException;
+
 /**
  *
  * @author cucchiarini.cesare
@@ -13,8 +15,8 @@ public class Calciatori {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException{
+        FileManager.leggiSegni("zodiaco.csv");
     }
     
 }

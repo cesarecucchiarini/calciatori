@@ -4,10 +4,18 @@
  */
 package calciatori;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 /**
  *
  * @author cucchiarini.cesare
  */
 public class ManagerCalciatore {
+    private ArrayList<Calciatore> calciatori;
+    private LinkedHashMap<String, Integer> mappaSegni = new LinkedHashMap<>();
     
+    public ManageCalciatore(ArrayList<Calciatore> calciatori){
+        this.calciatori = calciatori;
+    }
 }

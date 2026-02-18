@@ -17,8 +17,19 @@ public class SegnoZodiacale {
     private static HashMap<String, MonthDay[]> date = new HashMap<>();
     
     public static String getSegno(LocalDate data){
-        return "";
+        MonthDay d = MonthDay.from(data);
+        
+        for(String segno : date.keySet()){
+            if(isInDate(d, date.get(segno))) return segno;
+        }
+        return "Capricorno";
     }
     
-    public satic boolean isIn
+    public static boolean isInDate(MonthDay data, MonthDay[] periodo){
+        return data.compareTo(periodo[0]) + 1 > 0 && data.compareTo(periodo[1]) - 1 < 0;
+    }
+    
+    public static void aggiungiSegno(String segno, MonthDay inizio, MonthDay fine){
+        date.put(segno, new MonthDay[]{inizio, fine});
+    }
 }

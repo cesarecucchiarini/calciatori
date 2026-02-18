@@ -15,16 +15,17 @@ public class Calciatore {
     private String nome;
     private String nazionalita;
     private LocalDate nascita;
-    private SegnoZodiacale segno;
+    private String segno;
 
     public Calciatore(int goal, String nome, String nazionalita, LocalDate nascita) {
         this.goal = goal;
         this.nome = nome;
         this.nazionalita = nazionalita;
         this.nascita = nascita;
+        calcolaSegno();
     }
     
     public void calcolaSegno(){
-        
+        segno = SegnoZodiacale.getSegno(nascita);
     }
 }
