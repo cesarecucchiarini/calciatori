@@ -17,7 +17,7 @@ public class Calciatore {
     private LocalDate nascita;
     private String segno;
 
-    public Calciatore(int goal, String nome, String nazionalita, LocalDate nascita) {
+    public Calciatore(String nome, int goal, String nazionalita, LocalDate nascita) {
         this.goal = goal;
         this.nome = nome;
         this.nazionalita = nazionalita;
@@ -28,4 +28,19 @@ public class Calciatore {
     public void calcolaSegno(){
         segno = SegnoZodiacale.getSegno(nascita);
     }
+    
+    @Override 
+    public String toString(){
+        return nome + " " + segno;
+    }
+
+    public int getGoal() {
+        return goal;
+    }
+
+    public String getSegno() {
+        return segno;
+    }
+    
+    
 }

@@ -6,7 +6,8 @@ package calciatori;
 
 import java.time.LocalDate;
 import java.time.MonthDay;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.HashMap;
  */
 public class SegnoZodiacale {
     
-    private static HashMap<String, MonthDay[]> date = new HashMap<>();
+    private static LinkedHashMap<String, MonthDay[]> date = new LinkedHashMap<>();
     
     public static String getSegno(LocalDate data){
         MonthDay d = MonthDay.from(data);
@@ -29,7 +30,7 @@ public class SegnoZodiacale {
         return data.compareTo(periodo[0]) + 1 > 0 && data.compareTo(periodo[1]) - 1 < 0;
     }
     
-    public static void aggiungiSegno(String segno, MonthDay inizio, MonthDay fine){
-        date.put(segno, new MonthDay[]{inizio, fine});
+    public static void aggiungiSegni(Map<String, MonthDay[]> segni){
+        date = (LinkedHashMap) segni;
     }
 }

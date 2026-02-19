@@ -16,7 +16,8 @@ public class Calciatori {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException{
-        FileManager.leggiSegni("zodiaco.csv");
+        SegnoZodiacale.aggiungiSegni(FileManager.leggiSegni("zodiaco.csv"));
+        ManagerCalciatore m = new ManagerCalciatore(FileManager.leggiCalciatori("sportivi.csv"));
     }
     
 }
