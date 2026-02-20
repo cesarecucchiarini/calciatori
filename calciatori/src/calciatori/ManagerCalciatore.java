@@ -7,7 +7,9 @@ package calciatori;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -16,7 +18,6 @@ import java.util.stream.Collectors;
 public class ManagerCalciatore {
     private ArrayList<Calciatore> calciatori;
     private LinkedHashMap<String, Integer> mappaSegni = new LinkedHashMap<>();
-    private int maxGoal;
     
     public ManagerCalciatore(ArrayList<Calciatore> calciatori){
         this.calciatori = calciatori;
@@ -36,25 +37,26 @@ public class ManagerCalciatore {
             else
                 mappaSegni.put(segno, c.getGoal());
         }
+        
+        ordinaPerGoal();
     }
     
-    public void ordinaPerGoal(){
-        mappaSegni = mappaSegni.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(
-            Map.Entry::getKey,
-            Map.Entry::getValue,
-            (e1, e2) -> e1,
-            LinkedHashMap::new
-        ));
+    private void ordinaPerGoal(){
         
-        mappaSegni = (LinkedHashMap)mappaSegni.reversed();
+        Stream<Entry<String, Integer>> stream = mappaSegni.entrySet().stream();
         
-        maxGoal = mappaSegni.values().iterator().next();
+        mappaSegni = stream.sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (e1, e2) -> e1,
+                LinkedHashMap::new
+            ));
+        
+        
     }
     
-    public ArrayList<Integer> calcolaPercentuali(){
-        ArrayList<Integer> valori = new ArrayList<>();
-        for(int v : mappaSegni.values().){
-
-        }
+    public LinkedHashMap<String, Integer> getMappaSegni(){
+        return mappaSegni;
     }
 }
