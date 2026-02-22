@@ -5,6 +5,7 @@
 package calciatori;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -40,6 +41,22 @@ public class Calciatore {
 
     public String getSegno() {
         return segno;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getNazionalita() {
+        return nazionalita;
+    }
+
+    public LocalDate getNascita() {
+        return nascita;
+    }
+    
+    public String getNascitaString(){
+        return nascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
     
     

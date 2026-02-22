@@ -4,7 +4,9 @@
  */
 package calciatori;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -38,59 +40,38 @@ public class CalciatoriForm extends javax.swing.JFrame {
         SegnoZodiacale.aggiungiSegni(FileManager.leggiSegni("zodiaco.csv"));
         m = new ManagerCalciatore(FileManager.leggiCalciatori("sportivi.csv"));
         m.calcolaGoal();
+        JPanel interfaccia;
+        
+        this.setLayout(new BorderLayout());
+        
+        interfaccia = new LayoutCalciatori(m.getCalciatori());
+        JScrollPane scrollPane = new JScrollPane(interfaccia);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.add(scrollPane, BorderLayout.CENTER);
+        
+        this.setSize(new Dimension(900, 600));
         
         this.addComponentListener(new ComponentAdapter(){
             @Override
             public void componentResized(ComponentEvent e){
-                resizeLabelFont();
+                resizeLabelFont(interfaccia);
             }
         });
-        this.setLayout(new GridBagLayout());
-        
-        this.creaInterfaccia(ManagerOutput.getOutput(m.getMappaSegni()));
-        
-        this.setSize(new Dimension(900, 600));
     }
     
-    public void creaInterfaccia(LinkedHashMap<String, Integer> mappa){
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(5, 0, 5, 10); // spacing between components
-        gbc.weighty = 1.0;
-        gbc.gridy = -1;
-        int counter = 0;
-        
-        for(Map.Entry<String, Integer> set : mappa.entrySet()){
-            JLabel label = new JLabel();
-            JProgressBar progressbar = new JProgressBar();
-            
-            gbc.gridy++;
-            
-            gbc.gridx = 0;
-            gbc.weightx = 0.25;
-            this.add(label, gbc);
-
-            gbc.gridx = 1;
-            gbc.weightx = 0.75;
-            this.add(progressbar, gbc);
-            
-            label.setText(set.getKey());
-            label.setHorizontalAlignment(JLabel.CENTER);
-            progressbar.setValue(set.getValue());
-        }
-    }
-    
-    private void resizeLabelFont() {
+    private void resizeLabelFont(Container container) {
         int windowWidth = getWidth();
         int windowHeight = getHeight();
 
         // Base the font size on a fraction of the smaller dimension
         int fontSize = (int) (Math.min(windowWidth, windowHeight)*0.05);
         
-        for(Component c : this.getContentPane().getComponents()){
+        for(Component c : container.getComponents()){
             if(c instanceof JLabel)
                 SwingUtilities.invokeLater(()->{c.setFont(new Font("Arial", Font.BOLD, fontSize));});
-                
+            else if(c instanceof Container)
+                resizeLabelFont((Container) c);
+            
         }
     }
 
