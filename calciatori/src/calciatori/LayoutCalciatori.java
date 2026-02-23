@@ -4,15 +4,10 @@
  */
 package calciatori;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.util.ArrayList;
-import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-
 /**
  *
  * @author sergi

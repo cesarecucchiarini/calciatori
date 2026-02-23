@@ -15,6 +15,12 @@ import java.util.Map;
  */
 public class ManagerOutput {
     
+    /**
+     * 
+     * 
+     * @return presa una mappa contenente key di tipo String e value di tipo Integer, il ritorno è una mappa con stesse chiavi 
+     *  e rapporto con il valore maggiore
+     */
     public static LinkedHashMap<String, Integer> getOutput(LinkedHashMap<String, Integer> mappa){
         LinkedHashMap<String, Integer> output = new LinkedHashMap<>();
         String s;

@@ -17,6 +17,10 @@ import java.util.stream.Stream;
  */
 public class ManagerCalciatore {
     private ArrayList<Calciatore> calciatori;
+    
+    /**
+     * mappa che permette di mantenere anche l'ordine per ordinare in base ai goal
+     */
     private LinkedHashMap<String, Integer> mappaSegni = new LinkedHashMap<>();
     
     public ManagerCalciatore(ArrayList<Calciatore> calciatori){

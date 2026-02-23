@@ -9,14 +9,11 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import javax.swing.*;
 
 /**
@@ -31,8 +28,9 @@ public class CalciatoriForm extends javax.swing.JFrame {
      * Creates new form CalciatoriForm
      */
     
-    ManagerCalciatore m;
-    
+    private ManagerCalciatore m;
+    private JPanel interfaccia;
+    private JScrollPane scrollPane;
         
     public CalciatoriForm() throws IOException{
         initComponents();
@@ -40,13 +38,14 @@ public class CalciatoriForm extends javax.swing.JFrame {
         SegnoZodiacale.aggiungiSegni(FileManager.leggiSegni("zodiaco.csv"));
         m = new ManagerCalciatore(FileManager.leggiCalciatori("sportivi.csv"));
         m.calcolaGoal();
-        JPanel interfaccia;
+        
         
         this.setLayout(new BorderLayout());
         
         interfaccia = new LayoutCalciatori(m.getCalciatori());
-        JScrollPane scrollPane = new JScrollPane(interfaccia);
+        scrollPane = new JScrollPane(interfaccia);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         this.add(scrollPane, BorderLayout.CENTER);
         
         this.setSize(new Dimension(900, 600));
@@ -57,22 +56,46 @@ public class CalciatoriForm extends javax.swing.JFrame {
                 resizeLabelFont(interfaccia);
             }
         });
+        
+        JButton bottone = new JButton("Cambia intefaccia");
+        bottone.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                cambiaInterfaccia();
+            }
+        });
+        
+        bottone.setPreferredSize(new Dimension(300, 40));
+        JPanel p = new JPanel();
+        p.add(bottone);
+        this.add(p, BorderLayout.SOUTH);
     }
     
     private void resizeLabelFont(Container container) {
         int windowWidth = getWidth();
         int windowHeight = getHeight();
 
-        // Base the font size on a fraction of the smaller dimension
-        int fontSize = (int) (Math.min(windowWidth, windowHeight)*0.05);
+        int fontSize = (int) (Math.min(windowWidth, windowHeight)*0.03);
         
         for(Component c : container.getComponents()){
             if(c instanceof JLabel)
-                SwingUtilities.invokeLater(()->{c.setFont(new Font("Arial", Font.BOLD, fontSize));});
+                c.setFont(new Font("Arial", Font.BOLD, fontSize));
             else if(c instanceof Container)
                 resizeLabelFont((Container) c);
             
         }
+    }
+    
+    private void cambiaInterfaccia(){
+        if(interfaccia instanceof LayoutCalciatori)
+            interfaccia = new LayoutSegni(ManagerOutput.getOutput(m.getMappaSegni()));
+        else
+            interfaccia = new LayoutCalciatori(m.getCalciatori());
+        
+        scrollPane.setViewportView(interfaccia); // ← this actually swaps the panel
+        scrollPane.revalidate();
+        scrollPane.repaint();
+        resizeLabelFont(interfaccia);
     }
 
     /**

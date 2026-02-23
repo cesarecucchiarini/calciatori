@@ -17,6 +17,11 @@ public class SegnoZodiacale {
     
     private static HashMap<String, MonthDay[]> date = new HashMap<>();
     
+    /**
+     * 
+     * @param data data di cui controllare il segno
+     * @return il ritorno è il segno zodiacale, il ritorno di default è capricorno per via dell'ambiguità del suo periodo
+     */
     public static String getSegno(LocalDate data){
         MonthDay d = MonthDay.from(data);
         
@@ -26,6 +31,12 @@ public class SegnoZodiacale {
         return "Capricorno";
     }
     
+    /**
+     * 
+     * @param data la data da controllare
+     * @param periodo il periodo da controllare
+     * @return 
+     */
     public static boolean isInDate(MonthDay data, MonthDay[] periodo){
         return data.compareTo(periodo[0]) + 1 > 0 && data.compareTo(periodo[1]) - 1 < 0;
     }
