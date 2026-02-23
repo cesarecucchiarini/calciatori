@@ -5,6 +5,7 @@
 package calciatori;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -47,9 +48,10 @@ public class CalciatoriForm extends javax.swing.JFrame {
         scrollPane = new JScrollPane(interfaccia);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         this.add(scrollPane, BorderLayout.CENTER);
         
-        this.setSize(new Dimension(900, 600));
+        this.setSize(new Dimension(1200, 600));
         
         this.addComponentListener(new ComponentAdapter(){
             @Override
@@ -81,8 +83,10 @@ public class CalciatoriForm extends javax.swing.JFrame {
         p.setLayout(new GridLayout(1,2));
         p.add(bottone);
         p.add(bottoneIstruzioni);
+        p.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
         this.add(p, BorderLayout.SOUTH);
     }
+
     
     private void resizeLabelFont(Container container) {
         int windowWidth = getWidth();
@@ -118,11 +122,11 @@ public class CalciatoriForm extends javax.swing.JFrame {
                  La seconda interfaccia mostra un istogramma che indica il rapporto dei goal tra i vari segni zodiacali.                    
                  """;
     
-    JLabel label = new JLabel("<html>" + msg.replace("\n", "<br>") + "</html>");
-    label.setFont(new Font("Arial", Font.PLAIN, 18));
-    
-    JOptionPane.showMessageDialog(this, label, "Istruzioni", JOptionPane.INFORMATION_MESSAGE);
-}
+        JLabel label = new JLabel("<html>" + msg.replace("\n", "<br>") + "</html>");
+        label.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        JOptionPane.showMessageDialog(this, label, "Istruzioni", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

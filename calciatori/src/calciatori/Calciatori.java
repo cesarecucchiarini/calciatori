@@ -16,7 +16,9 @@ public class Calciatori {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException{
-        new CalciatoriForm().setVisible(true);
+        CalciatoriForm c = new CalciatoriForm();
+        c.setLocationRelativeTo(null);
+        c.setVisible(true);
     }
     
 }
